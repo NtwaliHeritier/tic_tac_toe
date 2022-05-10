@@ -6,7 +6,7 @@ defmodule TicTacToe.Main do
     player2 = Player.new("kevin", "o")
     game = GamePlay.new_game(player1, player2)
     game = GamePlay.play(game, player1, 1)
-    game = GamePlay.play(game, player1, 2)
+    game = GamePlay.play(game, player1, 1)
     GamePlay.play(game, player1, 3)
   end
 end

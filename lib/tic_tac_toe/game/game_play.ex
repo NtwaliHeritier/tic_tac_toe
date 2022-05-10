@@ -8,13 +8,17 @@ defmodule TicTacToe.Game.GamePlay do
   end
 
   def play(game, player, position) do
-    player
-    |> check_player(game)
-    |> update_game_score(position)
-    |> update_positions_taken(position)
-    |> WinningChecker.check()
-    |> update_turns_left()
-    |> is_game_over?()
+    if(position in game.positions_filled) do
+      game
+    else
+      player
+      |> check_player(game)
+      |> update_game_score(position)
+      |> update_positions_taken(position)
+      |> WinningChecker.check()
+      |> update_turns_left()
+      |> is_game_over?()
+    end
   end
 
   defp check_player(player, game) do
@@ -43,7 +47,7 @@ defmodule TicTacToe.Game.GamePlay do
 
   defp is_game_over?(game) do
     cond do
-      game.winner !== nil -> game.winner.name
+      game.winner !== nil -> game.winner.name <> " won"
       game.turns_left == 0 -> "Game over"
       true -> game
     end
