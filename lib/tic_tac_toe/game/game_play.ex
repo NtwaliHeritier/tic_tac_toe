@@ -1,5 +1,5 @@
 defmodule TicTacToe.Game.GamePlay do
-  defstruct [:player1, :player2, :winner, :player_turn]
+  defstruct [:player1, :player2, :winner, :player_turn, positions_filled: [], turns_left: 9]
 
   alias TicTacToe.Game.{Player, WinningChecker}
 
@@ -11,6 +11,7 @@ defmodule TicTacToe.Game.GamePlay do
     player
     |> check_player(game)
     |> update_game_score(position)
+    |> update_positions_taken(position)
     |> WinningChecker.check()
   end
 
@@ -28,5 +29,9 @@ defmodule TicTacToe.Game.GamePlay do
     else
       %{game | player2: Player.update_player_score(game.player2, position)}
     end
+  end
+
+  defp update_positions_taken(game, position) do
+    Map.update!(game, :positions_filled, &[position | &1])
   end
 end
