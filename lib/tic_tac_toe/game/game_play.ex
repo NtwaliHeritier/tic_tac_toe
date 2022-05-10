@@ -13,6 +13,8 @@ defmodule TicTacToe.Game.GamePlay do
     |> update_game_score(position)
     |> update_positions_taken(position)
     |> WinningChecker.check()
+    |> update_turns_left()
+    |> is_game_over?()
   end
 
   defp check_player(player, game) do
@@ -33,5 +35,17 @@ defmodule TicTacToe.Game.GamePlay do
 
   defp update_positions_taken(game, position) do
     Map.update!(game, :positions_filled, &[position | &1])
+  end
+
+  defp update_turns_left(game) do
+    Map.update!(game, :turns_left, &(&1 - 1))
+  end
+
+  defp is_game_over?(game) do
+    cond do
+      game.winner !== nil -> game.winner.name
+      game.turns_left == 0 -> "Game over"
+      true -> game
+    end
   end
 end
