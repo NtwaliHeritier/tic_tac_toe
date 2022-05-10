@@ -2,15 +2,10 @@ defmodule TicTacToe.Game.GamePlayTest do
   use ExUnit.Case, async: true
 
   alias TicTacToe.Game.{GamePlay, Player}
-
-  setup do
-    player1 = Player.new("Heritier", "X")
-    player2 = Player.new("Kevin", "O")
-    game = GamePlay.new_game(player1, player2)
-    {:ok, %{player1: player1, player2: player2, game: game}}
-  end
+  import TicTacToeWeb.Support.GameSupport, only: [create_game: 1]
 
   describe "&new_game/2" do
+    setup [:create_game]
     test "starts a new game", %{player1: player1, player2: player2} do
       game = GamePlay.new_game(player1, player2)
 
@@ -29,6 +24,7 @@ defmodule TicTacToe.Game.GamePlayTest do
   end
 
   describe "&play/2" do
+    setup [:create_game]
     test "makes a play move", %{game: game, player1: player1} do
       assert GamePlay.play(game, player1, 1) === %GamePlay{
                player1: %Player{key: "X", name: "Heritier", score_combo: [1]},
