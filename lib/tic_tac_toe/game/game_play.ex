@@ -47,7 +47,7 @@ defmodule TicTacToe.Game.GamePlay do
 
   defp is_game_over?(game) do
     cond do
-      game.winner !== nil -> game.winner.name <> " won"
+      game.winner !== nil -> game
       game.turns_left == 0 -> "Game over"
       true -> game
     end
