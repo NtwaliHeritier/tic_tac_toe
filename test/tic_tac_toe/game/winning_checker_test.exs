@@ -19,5 +19,12 @@ defmodule TicTacToe.Game.WinningCheckerTest do
                winner: nil
              }
     end
+
+    test "returns that game is won", %{game: game, player1: player1} do
+      game = GamePlay.play(game, player1, 1)
+      game = GamePlay.play(game, player1, 2)
+      game = GamePlay.play(game, player1, 3)
+      assert game.winner === game.player1
+    end
   end
 end
