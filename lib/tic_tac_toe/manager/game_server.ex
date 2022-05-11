@@ -8,16 +8,25 @@ defmodule TicTacToe.Manager.GameServer do
     )
   end
 
+  def get_status(name) do
+    GenServer.call(name, :get_status)
+  end
+
+  def play(name, player, position) do
+    GenServer.call(name, {:play, player, position})
+  end
+
   def init({player1, player2}) do
     state = GamePlay.new_game(player1, player2)
     {:ok, state}
   end
 
-  def get_status(name) do
-    GenServer.call(name, :get_status)
+  def handle_call(:get_status, _from, state) do
+    {:reply, state, state}
   end
 
-  def handle_call(:get_status, _from, state) do
+  def handle_call({:play, player, position}, _from, state) do
+    state = GamePlay.play(state, player, position)
     {:reply, state, state}
   end
 
