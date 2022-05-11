@@ -2,7 +2,7 @@ defmodule TicTacToe.Manager.GameServer do
   use GenServer
   alias TicTacToe.Game.GamePlay
 
-  def start_link(player1, player2) do
+  def start_link(player1: player1, player2: player2) do
     GenServer.start_link(__MODULE__, {player1, player2},
       name: game_name(player1.name, player2.name)
     )
