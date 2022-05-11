@@ -1,5 +1,5 @@
 defmodule TicTacToe.Manager.GameServerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias TicTacToe.Manager.GameServer
   alias TicTacToe.Game.{GamePlay, Player}
