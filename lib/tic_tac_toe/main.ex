@@ -4,6 +4,8 @@ defmodule TicTacToe.Main do
   def run do
     player1 = Player.new("hatsor", "x")
     player2 = Player.new("kevin", "o")
+    # player3 = Player.new("peace", "x")
+    # player4 = Player.new("eddy", "o")
     game = GamePlay.new_game(player1, player2)
     game = GamePlay.play(game, player1, 1)
     game = GamePlay.play(game, player1, 1)
