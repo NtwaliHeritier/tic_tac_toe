@@ -7,6 +7,15 @@
 # General application configuration
 use Mix.Config
 
+config :tic_tac_toe,
+  ecto_repos: [TicTacToe.Repo]
+
+config :tic_tac_toe, TicTacToe.Repo,
+  database: "tic_tac_toe_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
+
 # Configures the endpoint
 config :tic_tac_toe, TicTacToeWeb.Endpoint,
   url: [host: "localhost"],
