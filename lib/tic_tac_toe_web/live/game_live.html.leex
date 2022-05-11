@@ -1,0 +1,7 @@
+    <h1>Game</h1>
+    <%= for square <- Enum.to_list(1..9) do %>
+        <button phx-click="click" value = "<%=square%>"><%=square%></button>
+        <%= if rem(square, 3) === 0 do %>
+            <br>
+        <% end %>
+    <% end %>

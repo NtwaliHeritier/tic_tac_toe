@@ -5,21 +5,9 @@ defmodule TicTacToeWeb.GameLive do
     {:ok, socket}
   end
 
-  def render(assigns) do
-    ~L"""
-        <h1>Game</h1>
-    <%= for square <- Enum.to_list(1..9) do %>
-        <button phx-click="click"><%=square%></button>
-        <%= if rem(square, 3) === 0 do %>
-            <br>
-        <% end %>
-    <% end %>
-    """
-  end
-
-  def handle_event("click", _params, socket) do
+  def handle_event("click", %{"value" => value}, socket) do
     IO.puts("=====================")
-    IO.puts("clicked")
+    IO.inspect(value)
     {:noreply, socket}
   end
 end
