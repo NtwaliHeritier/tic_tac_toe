@@ -40,3 +40,8 @@
   display: block;
   margin: -1rem 0 2rem;
 }
+
+.btn {
+  padding: 10%;
+  font-size: 30px;
+}

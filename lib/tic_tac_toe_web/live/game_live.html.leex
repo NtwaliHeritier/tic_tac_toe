@@ -17,7 +17,7 @@
         <% end %>
 
         <%= for square <- Enum.to_list(1..length(@squares)) do %>
-            <button phx-click="click" value = "<%=square%>"><%= Enum.at(@squares, square - 1)%></button>
+            <button phx-click="click" value="<%=square%>" class="btn"><%= Enum.at(@squares, square - 1)%></button>
             <%= if rem(square, 3) === 0 do %>
                 <br>
             <% end %>
