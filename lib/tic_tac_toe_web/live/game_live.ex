@@ -67,6 +67,11 @@ defmodule TicTacToeWeb.GameLive do
     {:noreply, socket}
   end
 
+  def handle_event("end", _params, socket) do
+    :ok = GameSupervisor.stop_game(socket.assigns.game.player1.name)
+    {:noreply, socket}
+  end
+
   def handle_info({:update, game, squares}, socket) do
     socket = assign(socket, game: game, squares: squares)
     {:noreply, socket}

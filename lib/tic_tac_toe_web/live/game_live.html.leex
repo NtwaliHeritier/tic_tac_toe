@@ -7,8 +7,13 @@
         </form>
     <% else %>
         <h2>Moves left: <%= Map.get(@game, :turns_left) %></h2>
-        <%= if @game.winner do %>
-            <h2><%= String.upcase @game.winner.name %> won</h2>
+        <%= if @game.status do %>
+            <button phx-click="end">End game</button>
+            <%= if @game.status === "won" do %>
+                <h2><%= String.upcase @game.winner.name %> won</h2>
+            <% else %>
+                <h2>Game lost</h2>
+            <% end %>
         <% end %>
 
         <%= for square <- Enum.to_list(1..length(@squares)) do %>
