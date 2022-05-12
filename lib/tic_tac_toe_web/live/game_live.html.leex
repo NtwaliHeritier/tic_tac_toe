@@ -10,7 +10,7 @@
         <%= if @game.status do %>
             <button phx-click="end">End game</button>
             <%= if @game.status === "won" do %>
-                <h2><%= String.upcase @game.winner.name %> won</h2>
+                <h2><%= String.capitalize @game.winner.name %> won</h2>
             <% else %>
                 <h2>Game lost</h2>
             <% end %>
