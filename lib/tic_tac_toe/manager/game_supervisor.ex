@@ -15,4 +15,9 @@ defmodule TicTacToe.Manager.GameSupervisor do
     spec = {GameServer, player: player}
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
+
+  def stop_game(name) do
+    pid = name |> String.to_atom() |> Process.whereis()
+    DynamicSupervisor.terminate_child(__MODULE__, pid)
+  end
 end

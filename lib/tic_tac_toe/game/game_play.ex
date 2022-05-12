@@ -28,9 +28,6 @@ defmodule TicTacToe.Game.GamePlay do
   end
 
   defp check_player(player, game) do
-    IO.inspect(game.player1.key)
-    IO.inspect(player)
-
     if game.player1.name == player.name do
       %{game | player_turn: :player1}
     else
