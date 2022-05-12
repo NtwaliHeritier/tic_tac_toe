@@ -7,7 +7,6 @@ defmodule TicTacToeWeb.GameLive do
 
   def mount(_params, session, socket) do
     current_user = Accounts.get_user_by_session_token(session["user_token"])
-    if connected?(socket), do: Phoenix.PubSub.subscribe(TicTacToe.PubSub, current_user.email)
 
     socket = assign(socket, squares: Enum.to_list(1..9), game: nil, player: nil)
 
@@ -21,8 +20,7 @@ defmodule TicTacToeWeb.GameLive do
     player = Player.new(name)
     Game.new(player)
     game = Game.get_status(String.to_atom(name))
-    IO.inspect(game)
-    IO.inspect(player)
+    Phoenix.PubSub.subscribe(TicTacToe.PubSub, game.player1.name)
     {:noreply, assign(socket, game: game, player: player)}
   end
 
@@ -30,6 +28,7 @@ defmodule TicTacToeWeb.GameLive do
     name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
     player = Player.new(name)
     game = game_name |> String.to_atom() |> Game.join(player)
+    Phoenix.PubSub.subscribe(TicTacToe.PubSub, game.player1.name)
     {:noreply, assign(socket, game: game, player: player)}
   end
 
@@ -63,7 +62,7 @@ defmodule TicTacToeWeb.GameLive do
 
     Phoenix.PubSub.broadcast(
       TicTacToe.PubSub,
-      socket.assigns.current_user.email,
+      game.player1.name,
       {:update, game, squares}
     )
 
@@ -72,7 +71,10 @@ defmodule TicTacToeWeb.GameLive do
   end
 
   def handle_event("end", _params, socket) do
-    :ok = Game.stop(socket.assigns.game.player1.name)
+    if Process.whereis(String.to_atom(socket.assigns.game.player1.name)) do
+      Game.stop(socket.assigns.game.player1.name)
+    end
+
     {:noreply, assign(socket, game: nil, player: nil, squares: Enum.to_list(1..9))}
   end
 
