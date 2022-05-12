@@ -10,7 +10,8 @@ Built using:
 To run it locally:
 - clone this repo: `git clone https://github.com/NtwaliHeritier/tic_tac_toe`
 - Update your database credentials in config/config.exs
-- Run `mix ecto.setup` to create and migrate your database
+- Run `mix ecto.create` to create your database
+- Run `mix ecto.migrate` to migrate your database
 - Run `mix phx.server` to start your server
 - Now you can visit [`localhost:4000`](http://localhost:4000)
 - Run `mix test` for tests.
