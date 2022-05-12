@@ -5,16 +5,15 @@ defmodule TicTacToe.Manager.GameSupervisorTest do
   alias TicTacToe.Game.Player
 
   setup do
-    player1 = Player.new("Ntwali", "X")
-    player2 = Player.new("Ishimwe", "O")
+    player1 = Player.new("Ntwali")
     GameSupervisor.start_link([])
-    {:ok, %{player1: player1, player2: player2}}
+    {:ok, %{player1: player1}}
   end
 
   describe "&start_child/2" do
-    test "starts a child process", %{player1: player1, player2: player2} do
-      GameSupervisor.start_child(player1, player2)
-      game = GameServer.get_status(:"#{player1.name}_#{player2.name}")
+    test "starts a child process", %{player1: player1} do
+      GameSupervisor.start_child(player1)
+      game = GameServer.get_status(:"#{player1.name}")
       assert game.player1.name === "Ntwali"
     end
   end
