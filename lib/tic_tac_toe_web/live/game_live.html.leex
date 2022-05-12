@@ -1,0 +1,25 @@
+    <h1>Game</h1>
+    <%= if !@game do %>
+        <button phx-click="start_game">Start new game</button>
+        <form phx-submit="join_game">
+            <input name="game_name"/>
+            <button type="submit">Join game</button>
+        </form>
+    <% else %>
+        <h2>Moves left: <%= Map.get(@game, :turns_left) %></h2>
+        <%= if @game.status do %>
+            <button phx-click="end">End game</button>
+            <%= if @game.status === "won" do %>
+                <h2><%= String.capitalize @game.winner.name %> won</h2>
+            <% else %>
+                <h2>Game lost</h2>
+            <% end %>
+        <% end %>
+
+        <%= for square <- Enum.to_list(1..length(@squares)) do %>
+            <button phx-click="click" value="<%=square%>" class="btn"><%= Enum.at(@squares, square - 1)%></button>
+            <%= if rem(square, 3) === 0 do %>
+                <br>
+            <% end %>
+        <% end %>
+    <% end %>

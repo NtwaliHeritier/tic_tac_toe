@@ -1,10 +1,24 @@
 defmodule TicTacToe.Game.GamePlay do
-  defstruct [:player1, :player2, :winner, :player_turn, positions_filled: [], turns_left: 9]
+  defstruct [
+    :player1,
+    :player2,
+    :winner,
+    :status,
+    :player_turn,
+    positions_filled: [],
+    turns_left: 9
+  ]
 
   alias TicTacToe.Game.{Player, WinningChecker}
 
-  def new_game(player1, player2) do
-    %__MODULE__{player1: player1, player2: player2}
+  def new_game(player) do
+    player = Player.assign_key(player, "X")
+    %__MODULE__{player1: player}
+  end
+
+  def join(game, player) do
+    player = Player.assign_key(player, "O")
+    %{game | player2: player}
   end
 
   def play(game, player, position) do
@@ -22,10 +36,10 @@ defmodule TicTacToe.Game.GamePlay do
   end
 
   defp check_player(player, game) do
-    if game.player1.key == player.key do
+    if game.player1.name == player.name do
       %{game | player_turn: :player1}
     else
-      %{game | player_turn: :player1}
+      %{game | player_turn: :player2}
     end
   end
 
@@ -47,8 +61,8 @@ defmodule TicTacToe.Game.GamePlay do
 
   defp is_game_over?(game) do
     cond do
-      game.winner !== nil -> game
-      game.turns_left == 0 -> "Game over"
+      game.winner !== nil -> %{game | status: "won"}
+      game.turns_left == 0 -> %{game | status: "over"}
       true -> game
     end
   end

@@ -13,6 +13,7 @@ defmodule TicTacToe.Application do
       {Phoenix.PubSub, name: TicTacToe.PubSub},
       # Start the Endpoint (http/https)
       TicTacToeWeb.Endpoint,
+      TicTacToe.Repo,
       {TicTacToe.Manager.GameSupervisor, []}
       # Start a worker by calling: TicTacToe.Worker.start_link(arg)
       # {TicTacToe.Worker, arg}
