@@ -1,5 +1,13 @@
 defmodule TicTacToe.Game.GamePlay do
-  defstruct [:player1, :player2, :winner, :player_turn, positions_filled: [], turns_left: 9]
+  defstruct [
+    :player1,
+    :player2,
+    :winner,
+    :status,
+    :player_turn,
+    positions_filled: [],
+    turns_left: 9
+  ]
 
   alias TicTacToe.Game.{Player, WinningChecker}
 
@@ -53,8 +61,8 @@ defmodule TicTacToe.Game.GamePlay do
 
   defp is_game_over?(game) do
     cond do
-      game.winner !== nil -> game
-      game.turns_left == 0 -> "Game over"
+      game.winner !== nil -> %{game | status: "won"}
+      game.turns_left == 0 -> %{game | status: "over"}
       true -> game
     end
   end
