@@ -15,8 +15,10 @@ To run it locally:
 - Now you can visit [`localhost:4000`](http://localhost:4000)
 - Run `mix test` for tests.
 
-Demo video: (https://www.loom.com/share/b9e07a3a245043049ec72c6e1956f0d9)
-Trello board: (https://trello.com/b/LZ7pOH4g/tic-tac-toe-game)
+## Links
+
+- Demo video: (https://www.loom.com/share/b9e07a3a245043049ec72c6e1956f0d9)
+- Trello board: (https://trello.com/b/LZ7pOH4g/tic-tac-toe-game)
 
 ## Show your support
 
