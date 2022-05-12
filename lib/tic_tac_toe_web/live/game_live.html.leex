@@ -1,5 +1,4 @@
     <h1>Game</h1>
-    <h1><%= @current_user.email %></h1>
     <%= if !@game do %>
         <button phx-click="start_game">Start new game</button>
         <form phx-submit="join_game">
@@ -7,6 +6,7 @@
             <button type="submit">Join game</button>
         </form>
     <% else %>
+        <h1><%= Map.get(@game, :turns_left) %></h1>
         <%= for square <- Enum.to_list(1..length(@squares)) do %>
             <button phx-click="click" value = "<%=square%>"><%= Enum.at(@squares, square - 1)%></button>
             <%= if rem(square, 3) === 0 do %>
