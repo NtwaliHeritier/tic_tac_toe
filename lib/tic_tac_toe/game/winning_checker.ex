@@ -23,7 +23,7 @@ defmodule TicTacToe.Game.WinningChecker do
   defp check_if_won(_, []), do: nil
 
   defp check_if_won(player, [winning_combo | t]) do
-    if Enum.sort(player.score_combo) == winning_combo do
+    if winning_combo -- player.score_combo === [] do
       "won"
     else
       check_if_won(player, t)

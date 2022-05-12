@@ -3,7 +3,7 @@ defmodule TicTacToeWeb.GameLive do
 
   alias TicTacToe.Accounts
   alias TicTacToe.Game.Player
-  alias TicTacToe.Manager.{GameSupervisor, GameServer}
+  alias TicTacToe.Game
 
   def mount(_params, session, socket) do
     if connected?(socket), do: Phoenix.PubSub.subscribe(TicTacToe.PubSub, "game")
@@ -21,15 +21,15 @@ defmodule TicTacToeWeb.GameLive do
   def handle_event("start_game", _params, socket) do
     name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
     player = Player.new(name)
-    GameSupervisor.start_child(player)
-    game = GameServer.get_status(String.to_atom(name))
+    Game.new(player)
+    game = Game.get_status(String.to_atom(name))
     {:noreply, assign(socket, game: game, player: player)}
   end
 
   def handle_event("join_game", %{"game_name" => game_name}, socket) do
     name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
     player = Player.new(name)
-    game = game_name |> String.to_atom() |> GameServer.join(player)
+    game = game_name |> String.to_atom() |> Game.join(player)
     {:noreply, assign(socket, game: game, player: player)}
   end
 
@@ -55,7 +55,7 @@ defmodule TicTacToeWeb.GameLive do
     game_name = socket.assigns.game.player1.name
 
     game =
-      GameServer.play(
+      Game.play(
         :"#{String.to_atom(game_name)}",
         socket.assigns.player,
         String.to_integer(value)
@@ -68,7 +68,7 @@ defmodule TicTacToeWeb.GameLive do
   end
 
   def handle_event("end", _params, socket) do
-    :ok = GameSupervisor.stop_game(socket.assigns.game.player1.name)
+    :ok = Game.stop(socket.assigns.game.player1.name)
     {:noreply, assign(socket, game: nil, player: nil, squares: Enum.to_list(1..9))}
   end
 
