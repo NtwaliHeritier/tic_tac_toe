@@ -75,6 +75,7 @@ defmodule TicTacToeWeb.GameLive do
       Game.stop(socket.assigns.game.player1.name)
     end
 
+    Phoenix.PubSub.unsubscribe(TicTacToe.PubSub, socket.assigns.game.player1.name)
     {:noreply, assign(socket, game: nil, player: nil, squares: Enum.to_list(1..9))}
   end
 
