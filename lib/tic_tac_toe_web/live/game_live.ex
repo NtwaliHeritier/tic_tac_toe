@@ -28,23 +28,38 @@ defmodule TicTacToeWeb.GameLive do
     name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
     player = Player.new(name)
     game = game_name |> String.to_atom() |> GameServer.join(player)
-    {:noreply, assign(socket, :game, game)}
+    {:noreply, assign(socket, game: game, player: player)}
   end
 
   def handle_event("click", %{"value" => value}, socket) do
+    key =
+      if(socket.assigns.player.name === socket.assigns.game.player1.name) do
+        socket.assigns.game.player1.key
+      else
+        socket.assigns.game.player2.key
+      end
+
     squares = socket.assigns.squares
-    current_user = socket.assigns.current_user
 
     squares =
       Enum.map(squares, fn square ->
         if String.to_integer(value) == square do
-          current_user.email
+          key
         else
           square
         end
       end)
 
-    socket = assign(socket, :squares, squares)
+    game_name = socket.assigns.game.player1.name
+
+    game =
+      GameServer.play(
+        :"#{String.to_atom(game_name)}",
+        socket.assigns.player,
+        String.to_integer(value)
+      )
+
+    socket = assign(socket, squares: squares, game: game)
     {:noreply, socket}
   end
 end
