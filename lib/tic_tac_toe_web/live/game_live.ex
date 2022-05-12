@@ -6,6 +6,8 @@ defmodule TicTacToeWeb.GameLive do
   alias TicTacToe.Manager.{GameSupervisor, GameServer}
 
   def mount(_params, session, socket) do
+    if connected?(socket), do: Phoenix.PubSub.subscribe(TicTacToe.PubSub, "game")
+
     socket = assign(socket, squares: Enum.to_list(1..9), game: nil, player: nil)
 
     socket =
@@ -59,7 +61,14 @@ defmodule TicTacToeWeb.GameLive do
         String.to_integer(value)
       )
 
+    Phoenix.PubSub.broadcast(TicTacToe.PubSub, "game", {:update, game, squares})
+
     socket = assign(socket, squares: squares, game: game)
+    {:noreply, socket}
+  end
+
+  def handle_info({:update, game, squares}, socket) do
+    socket = assign(socket, game: game, squares: squares)
     {:noreply, socket}
   end
 end
