@@ -9,6 +9,7 @@ Built using:
 
 To run it locally:
 - clone this repo: `git clone https://github.com/NtwaliHeritier/tic_tac_toe`
+- Run `mix deps.get` and `mix deps.compile` to compile the dependencies.
 - Update your database credentials in config/config.exs
 - Run `mix ecto.create` to create your database
 - Run `mix ecto.migrate` to migrate your database
