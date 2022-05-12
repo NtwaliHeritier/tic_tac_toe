@@ -1,20 +1,25 @@
-# TicTacToe
+# Tic Tac Toe
 
-To start your Phoenix server:
+This is a real time tic tac toe game that allows players to play until one wins or the board is full.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+Built using:
+- Elixir
+- Phoenix
+- Liveview
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To run it locally:
+- clone this repo: `git clone https://github.com/NtwaliHeritier/tic_tac_toe`
+- Update your database credentials in config/config.exs
+- Run `mix ecto.setup` to create and migrate your database
+- Run `mix phx.server` to start your server
+- Now you can visit [`localhost:4000`](http://localhost:4000)
+- Run `mix test` for tests.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Demo video: (https://www.loom.com/share/b9e07a3a245043049ec72c6e1956f0d9)
+Trello board: (https://trello.com/b/LZ7pOH4g/tic-tac-toe-game)
 
-## Learn more
+## Show your support
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
-# tic_tac_toe
+Give a ⭐️ if you like this project!
+
+
