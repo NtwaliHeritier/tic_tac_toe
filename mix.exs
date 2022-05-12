@@ -47,7 +47,8 @@ defmodule TicTacToe.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:phx_gen_auth, "~> 0.7.0"}
+      {:phx_gen_auth, "~> 0.7.0"},
+      {:floki, ">= 0.30.0", only: :test}
     ]
   end
 
