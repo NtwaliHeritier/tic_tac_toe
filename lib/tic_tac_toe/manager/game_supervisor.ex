@@ -11,8 +11,8 @@ defmodule TicTacToe.Manager.GameSupervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  def start_child(player1, player2) do
-    spec = {GameServer, player1: player1, player2: player2}
+  def start_child(player) do
+    spec = {GameServer, player: player}
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 end
