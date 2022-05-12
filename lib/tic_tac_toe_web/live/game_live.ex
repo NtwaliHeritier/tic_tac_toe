@@ -27,9 +27,15 @@ defmodule TicTacToeWeb.GameLive do
   def handle_event("join_game", %{"game_name" => game_name}, socket) do
     name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
     player = Player.new(name)
-    game = game_name |> String.to_atom() |> Game.join(player)
-    Phoenix.PubSub.subscribe(TicTacToe.PubSub, game.player1.name)
-    {:noreply, assign(socket, game: game, player: player)}
+    process_name = game_name |> String.to_atom()
+
+    if Process.whereis(process_name) do
+      game = Game.join(process_name, player)
+      Phoenix.PubSub.subscribe(TicTacToe.PubSub, game.player1.name)
+      {:noreply, assign(socket, game: game, player: player)}
+    else
+      {:noreply, socket}
+    end
   end
 
   def handle_event("click", %{"value" => value}, socket) do
@@ -75,6 +81,7 @@ defmodule TicTacToeWeb.GameLive do
       Game.stop(socket.assigns.game.player1.name)
     end
 
+    Phoenix.PubSub.unsubscribe(TicTacToe.PubSub, socket.assigns.game.player1.name)
     {:noreply, assign(socket, game: nil, player: nil, squares: Enum.to_list(1..9))}
   end
 

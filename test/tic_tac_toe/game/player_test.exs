@@ -9,8 +9,8 @@ defmodule TicTacToe.Game.PlayerTest do
 
   describe "&new/2" do
     test "creates a new player struct with right params" do
-      assert Player.new("Heritier", "X") === %Player{name: "Heritier", key: "X", score_combo: []}
-      refute Player.new("Heriier", "X") === %Player{name: "Heritier", key: "X", score_combo: []}
+      assert Player.new("Heritier") === %Player{name: "Heritier", key: nil, score_combo: []}
+      refute Player.new("Heriier") === %Player{name: "Heritier", key: nil, score_combo: []}
     end
   end
 

@@ -37,5 +37,5 @@ defmodule TicTacToe.Manager.GameServer do
     {:reply, state, state}
   end
 
-  defp game_name(name1), do: :"#{name1}"
+  defp game_name(name), do: :"#{name}"
 end
