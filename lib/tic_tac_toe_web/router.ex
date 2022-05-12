@@ -60,6 +60,7 @@ defmodule TicTacToeWeb.Router do
   scope "/", TicTacToeWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    # live "/", MenuLive
     live "/game", GameLive
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update

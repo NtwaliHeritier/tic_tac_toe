@@ -2,9 +2,11 @@ defmodule TicTacToeWeb.GameLive do
   use TicTacToeWeb, :live_view
 
   alias TicTacToe.Accounts
+  alias TicTacToe.Game.Player
+  alias TicTacToe.Manager.GameSupervisor
 
   def mount(_params, session, socket) do
-    socket = assign(socket, :squares, Enum.to_list(1..9))
+    socket = assign(socket, squares: Enum.to_list(1..9), game: nil)
 
     socket =
       assign_new(socket, :current_user, fn ->
@@ -12,6 +14,13 @@ defmodule TicTacToeWeb.GameLive do
       end)
 
     {:ok, socket}
+  end
+
+  def handle_event("start_game", _params, socket) do
+    name = socket.assigns.current_user.email |> String.split("@") |> Enum.at(0)
+    player_name = Player.new(name)
+    game = GameSupervisor.start_child(player_name)
+    {:noreply, assign(socket, :game, game)}
   end
 
   def handle_event("click", %{"value" => value}, socket) do
