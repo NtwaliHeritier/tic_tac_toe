@@ -6,7 +6,11 @@
             <button type="submit">Join game</button>
         </form>
     <% else %>
-        <h1><%= Map.get(@game, :turns_left) %></h1>
+        <h1>Moves left: <%= Map.get(@game, :turns_left) %></h1>
+        <%= if @game.winner do %>
+            <h2><%= String.upcase @game.winner.name %> won</h2>
+        <% end %>
+
         <%= for square <- Enum.to_list(1..length(@squares)) do %>
             <button phx-click="click" value = "<%=square%>"><%= Enum.at(@squares, square - 1)%></button>
             <%= if rem(square, 3) === 0 do %>
