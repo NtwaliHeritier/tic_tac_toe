@@ -17,7 +17,7 @@ defmodule TicTacToe.Manager.GameServer do
   end
 
   def init({player1, player2}) do
-    state = GamePlay.new_game(player1, player2)
+    state = GamePlay.new_game(player1)
     {:ok, state}
   end
 

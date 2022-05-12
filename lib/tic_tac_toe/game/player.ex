@@ -1,8 +1,12 @@
 defmodule TicTacToe.Game.Player do
   defstruct [:name, :key, score_combo: []]
 
-  def new(name, key) do
-    %__MODULE__{name: name, key: key}
+  def new(name) do
+    %__MODULE__{name: name}
+  end
+
+  def assign_key(player, key) do
+    %{player | key: key}
   end
 
   def update_player_score(player, score_combo) do
